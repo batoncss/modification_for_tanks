@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import json
+from time import sleep
 
 
 def user_information(app_id):
@@ -18,8 +19,17 @@ def user_information(app_id):
         nickname = data[data.find('nickname=') + 9:data.find("&account_id")]
         account_id = data[data.find("account_id=") + 11:data.find("&expires_at")]
         expires_at = data[data.find("expires_at=") + 11:]
-        for_return = {"token": {"access_token": access_token, "expires_at": expires_at}, "user": {"nickname": nickname, "account_id": account_id}}
+        for_return = {"token": {"access_token": access_token, "expires_at": expires_at},
+                      "user": {"nickname": nickname, "account_id": account_id}}
         with open("user_data.json", "w") as write_file:
             json.dump(for_return, write_file)
+        driver.quit()
     else:
+        driver.quit()
         return "error"
+
+
+def token_from_file():
+    with open("user_data.json", "r") as file:
+        data = json.load(file)
+    return data['token']['access_token']

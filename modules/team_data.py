@@ -7,4 +7,4 @@ def team_reserves(app_id, user_token):
         del data['data'][1], data['data'][2], data['data'][3]  # removing teams reserves
         return data['data']
     else:
-        return data['status']
+        return data
