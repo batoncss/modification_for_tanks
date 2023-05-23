@@ -5,6 +5,7 @@ from modules.team_data import team_reserves
 config = configparser.ConfigParser()
 config.read('settings.ini')
 application_id = config['Application']['id']
+user_information(application_id)
 user_token = token_from_file()
 team_reserves_data = team_reserves(application_id, user_token)
 if 'error' in team_reserves_data:  # request a new token if an error
